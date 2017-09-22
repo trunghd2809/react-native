@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
 public class LocationModule extends ReactContextBaseJavaModule {
 
   private @Nullable String mWatchedProvider;
-  private static final float RCT_DEFAULT_LOCATION_ACCURACY = 100;
+  private static final float RCT_DEFAULT_LOCATION_ACCURACY = 0;
 
   private final LocationListener mLocationListener = new LocationListener() {
     @Override
@@ -84,7 +84,7 @@ public class LocationModule extends ReactContextBaseJavaModule {
       float distanceFilter) {
       this.timeout = timeout;
       this.maximumAge = maximumAge;
-      this.highAccuracy = highAccuracy;
+      this.highAccuracy = true;
       this.distanceFilter = distanceFilter;
     }
 
@@ -94,11 +94,10 @@ public class LocationModule extends ReactContextBaseJavaModule {
           map.hasKey("timeout") ? (long) map.getDouble("timeout") : Long.MAX_VALUE;
       double maximumAge =
           map.hasKey("maximumAge") ? map.getDouble("maximumAge") : Double.POSITIVE_INFINITY;
-      boolean highAccuracy =
-          map.hasKey("enableHighAccuracy") && map.getBoolean("enableHighAccuracy");
-      float distanceFilter = map.hasKey("distanceFilter") ?
-        (float) map.getDouble("distanceFilter") :
-        RCT_DEFAULT_LOCATION_ACCURACY;
+      boolean highAccuracy = true;
+          // map.hasKey("enableHighAccuracy") && map.getBoolean("enableHighAccuracy");
+      float distanceFilter = RCT_DEFAULT_LOCATION_ACCURACY;
+              // map.hasKey("distanceFilter") ? (float) map.getDouble("distanceFilter") : RCT_DEFAULT_LOCATION_ACCURACY;
 
       return new LocationOptions(timeout, maximumAge, highAccuracy, distanceFilter);
     }
