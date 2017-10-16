@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, RCTPositionErrorCode) {
   RCTPositionErrorTimeout,
 };
 
-#define RCT_DEFAULT_LOCATION_ACCURACY kCLLocationAccuracyHundredMeters
+#define RCT_DEFAULT_LOCATION_ACCURACY 0.0
 
 typedef struct {
   BOOL skipPermissionRequests;
@@ -60,7 +60,7 @@ typedef struct {
   return (RCTLocationOptions){
     .timeout = [RCTConvert NSTimeInterval:options[@"timeout"]] ?: INFINITY,
     .maximumAge = [RCTConvert NSTimeInterval:options[@"maximumAge"]] ?: INFINITY,
-    .accuracy = [RCTConvert BOOL:options[@"enableHighAccuracy"]] ? kCLLocationAccuracyBest : RCT_DEFAULT_LOCATION_ACCURACY,
+    .accuracy = RCT_DEFAULT_LOCATION_ACCURACY,
     .distanceFilter = distanceFilter,
     .useSignificantChanges = [RCTConvert BOOL:options[@"useSignificantChanges"]] ?: NO,
   };
