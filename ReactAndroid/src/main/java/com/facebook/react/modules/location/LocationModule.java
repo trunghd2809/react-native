@@ -56,10 +56,12 @@ public class LocationModule extends ReactContextBaseJavaModule {
     }
 
     @Override
-    public void onProviderEnabled(String provider) { }
+    public void onProviderEnabled(String provider) {}
 
     @Override
-    public void onProviderDisabled(String provider) { }
+    public void onProviderDisabled(String provider) {
+      emitError(PositionError.PERMISSION_DENIED, "Provider " + provider + " is temporarily unavailable.");
+    }
   };
 
   public LocationModule(ReactApplicationContext reactContext) {
