@@ -92,7 +92,15 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithFrame:(CGRect)frame)
   self.backedTextInputView.frame = UIEdgeInsetsInsetRect(self.bounds, reactBorderInsets);
   [self setNeedsLayout];
 }
+- (NSString *)text
+{
+  return [self attributedText].string;
+}
 
+- (void)setText:(NSString *)text
+{
+  [self setAttributedText:[[NSAttributedString alloc] initWithString: text]];
+}
 - (NSAttributedString *)attributedText
 {
   return self.backedTextInputView.attributedText;
