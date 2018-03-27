@@ -127,8 +127,9 @@
                             range:NSMakeRange(0, attributedText.length)];
 
   if (self.text.length) {
+    NSString * newString = [self.text stringByReplacingOccurrencesOfString:@" " withString:@"\u00a0"];
     NSAttributedString *propertyAttributedText =
-      [[NSAttributedString alloc] initWithString:self.text
+      [[NSAttributedString alloc] initWithString:newString
                                       attributes:self.textAttributes.effectiveTextAttributes];
     [attributedText insertAttributedString:propertyAttributedText atIndex:0];
   }
@@ -168,16 +169,19 @@
   // we use value directly from the property and/or nested content.
   NSAttributedString *attributedText =
     _localAttributedText ?: [self attributedTextWithBaseTextAttributes:nil];
-
-  if (attributedText.length == 0) {
+  
+  NSString * convertToSpace = [[attributedText string] stringByReplacingOccurrencesOfString:@"\u00a0" withString:@""];
+  NSString *str = [convertToSpace stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+  if (str.length == 0) {
     // It's impossible to measure empty attributed string because all attributes are
-    // assosiated with some characters, so no characters means no data.
+    // assosiated with some characters, so no characters means no data. Same thing happens
+    // for strings composed only by the space character
 
     // Placeholder also can represent the intrinsic size when it is visible.
     NSString *text = self.placeholder;
     if (!text.length) {
       // Can't use zero-width space because it sets the height as 0
-      text = @"A";
+      text = @"I";
     }
     attributedText = [[NSAttributedString alloc] initWithString:text attributes:self.textAttributes.effectiveTextAttributes];
   }
