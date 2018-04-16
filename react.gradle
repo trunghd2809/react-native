@@ -56,7 +56,7 @@ gradle.projectsEvaluated {
 
             // Additional node and packager commandline arguments
             def nodeExecutableAndArgs = config.nodeExecutableAndArgs ?: ["node"]
-            def extraPackagerArgs = config.extraPackagerArgs ?: []
+            def extraPackagerArgs = config."extraPackagerArgs${targetName}" ?: (config.extraPackagerArgs ?: [])
 
             def currentBundleTask = tasks.create(
                     name: bundleJsAndAssetsTaskName,
