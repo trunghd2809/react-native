@@ -472,6 +472,10 @@ public class UIImplementation {
     ReadableArray childrenTags) {
 
     ReactShadowNode cssNodeToManage = mShadowNodeRegistry.getNode(viewTag);
+    if (cssNodeToManage == null) {
+      FLog.w(ReactConstants.TAG, "Tried to manage non-existent view tag: " + viewTag);
+      return;
+    }
 
     for (int i = 0; i < childrenTags.size(); i++) {
       ReactShadowNode cssNodeToAdd = mShadowNodeRegistry.getNode(childrenTags.getInt(i));
