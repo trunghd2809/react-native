@@ -113,6 +113,7 @@ $NODE_BINARY "$CLI_PATH" $BUNDLE_COMMAND \
   --reset-cache \
   --bundle-output "$BUNDLE_FILE" \
   --assets-dest "$DEST" \
+  --sourcemap-output "$BUNDLE_FILE.map" \
   $EXTRA_PACKAGER_ARGS
 
 if [[ $DEV != true && ! -f "$BUNDLE_FILE" ]]; then
